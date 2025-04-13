@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User-Defined Object Example</title>
+    <script>
+        // Constructor function
+        function Student(name, age, marks) {
+            this.name = name;         // Property
+            this.age = age;           // Property
+            this._marks = marks;      // Property (private-like)
+
+            // Method to display student info
+            this.display = function() {
+                return "Name: " + this.name +
+                       "<br>Age: " + this.age +
+                       "<br>Marks: " + this.marks;
+            };
+
+            // Getter
+            Object.defineProperty(this, "marks", {
+                get: function() {
+                    return this._marks;
+                },
+                set: function(value) {
+                    if (value >= 0 && value <= 100) {
+                        this._marks = value;
+                    } else {
+                        alert("Invalid marks! Must be between 0 and 100.");
+                    }
+                }
+            });
+        }
+
+        // Create object and display info
+        function showStudent() {
+            const student1 = new Student("Kanchana", 22, 85);
+
+            // Using setter to update marks
+            student1.marks = 90;
+
+            // Display result
+            document.getElementById("output").innerHTML = student1.display();
+        }
+    </script>
+</head>
+<body onload="showStudent()">
+    <h2>User-Defined Object Example</h2>
+    <div id="output"></div>
+</body>
+</html>
